@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/Routes/BottomNavigator.dart';
 import 'package:news_app/Screens/Home/Home.dart';
 import 'package:news_app/Screens/ReadNews/ReadNews.dart';
 import 'package:news_app/Screens/Splash.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  await DotEnv().load(".env");
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Models/AppConfig.dart';
 import 'package:news_app/Shared/NavImageCard.dart';
 import 'package:news_app/Shared/NewsCard.dart';
 
@@ -14,6 +15,13 @@ class _HomeState extends State<Home> {
   }
 
   final List<int> newsList = [1, 1, 1, 1];
+
+  @override
+  void initState() {
+    super.initState();
+    AppConfig config = AppConfig();
+    print(config.key);
+  }
 
   @override
   Widget build(BuildContext context) {
