@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/Shared/NavImageCard.dart';
+import 'package:share/share.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class ReadNews extends StatefulWidget {
-  @override
-  _ReadNewsState createState() => _ReadNewsState();
-}
+class ReadNews extends StatelessWidget {
 
-class _ReadNewsState extends State<ReadNews> {
+  void shareNews(String title, String url) {
+    Share.share('$title $url', subject: "Download Fox News App");
+  }
+
   @override
   Widget build(BuildContext context) {
+    Map data = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text("Read News"),
+        title: Text(data["title"]),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.share),
+            tooltip: 'Share News',
+            onPressed: () {
+              this.shareNews(data["title"], data["url"]);
+            },
+          ),
+        ],
       ),
       body: WebView(
-              initialUrl: "https://www.lipsum.com",
+              initialUrl: data["url"],
             )
     );
   }

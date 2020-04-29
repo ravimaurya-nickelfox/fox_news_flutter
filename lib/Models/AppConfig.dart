@@ -5,5 +5,6 @@ class AppConfig {
 
   final String key = DotEnv().env["API_KEY"];
   final String url = DotEnv().env["API_URL"];
+  final String iconPath = DotEnv().env["SOURCE_ICON"];
 
 }

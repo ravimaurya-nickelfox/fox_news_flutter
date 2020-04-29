@@ -1,12 +1,12 @@
 
 import 'package:flutter/material.dart';
 
-class Response {
+class APIResponse {
 
   String statusCode;
-  Map data;
+  List data;
   Error errors;
 
-  Response({@required this.statusCode, @required this.data, this.errors});
+  APIResponse({@required this.statusCode, @required this.data, this.errors});
 
 }
