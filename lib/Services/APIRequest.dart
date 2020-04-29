@@ -13,16 +13,16 @@ class APIRequest {
 
   String endpoint;
   String queryParams;
-  final String country = "IN";
 
   APIRequest({this.endpoint, this.queryParams});
 
-  Future<APIResponse> newsRequest() async {
+  Future<APIResponse> newsRequest(String key) async {
     try {
-      final String url = '${config.url}$endpoint?country=$country';
+      final String url = '${config.url}$endpoint?${this.queryParams}';
       Response response = await get(url, headers: headers);
       Map jsonResponse = jsonDecode(response.body);
-      return APIResponse(data: jsonResponse["articles"], statusCode: "ok", errors: null);
+      print(jsonResponse);
+      return APIResponse(data: jsonResponse[key], statusCode: "ok", errors: null);
     } catch(ex) {
       return APIResponse(data: null, statusCode: "error", errors: ex);
     }

@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Models/SourceScreenArguments.dart';
 import 'package:news_app/Services/NewsApi.dart';
 import 'package:news_app/Shared/CenterLoader.dart';
 import 'package:news_app/Shared/NavImageCard.dart';
 import 'package:news_app/Shared/NewsCard.dart';
 
-class Home extends StatefulWidget {
+class SourceNews extends StatefulWidget {
+  final String id;
+  SourceNews({this.id});
+
   @override
-  _HomeState createState() => _HomeState();
+  _SourceNewsState createState() => _SourceNewsState();
 }
 
-class _HomeState extends State<Home> {
+class _SourceNewsState extends State<SourceNews> {
 
   Map topNews;
   List newsList;
@@ -18,26 +22,30 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    this.getTrendingNews();
+    this.getSourceNews();
   }
 
-  getTrendingNews() async {
+  getSourceNews() async {
     NewsApi api = NewsApi();
-    await api.getTrendingNews();
-    if (api.response.statusCode == "ok") {
-      this.setState(() {
-        final List data = api.response.data;
-        this.topNews = data[0];
-        data.removeAt(0);
-        this.newsList = data;
-        this.loading = false;
-      });
-    } else {
-      setState(() {
-        this.loading = false;
-      });
-      print(api.response.errors);
-    }
+    print(this.widget.id);
+    // await api.getNewsBySource(this.widget.id);
+    // print(api.response.data);
+    
+    // if (api.response.statusCode == "ok") {
+    //   this.setState(() {
+    //     final List data = api.response.data;
+    //     this.topNews = data[0];
+    //     data.removeAt(0);
+    //     this.newsList = data;
+    //     this.loading = false;
+    //   });
+    //   print(this.topNews);
+    // } else {
+    //   setState(() {
+    //     this.loading = false;
+    //   });
+    //   print(api.response.errors);
+    // }
   }
 
   void onPressNews(String url, String title) {

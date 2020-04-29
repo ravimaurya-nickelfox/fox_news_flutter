@@ -3,6 +3,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:news_app/Routes/BottomNavigator.dart';
 import 'package:news_app/Screens/Home/Home.dart';
 import 'package:news_app/Screens/ReadNews/ReadNews.dart';
+import 'package:news_app/Screens/SourceNews/SourceNews.dart';
 import 'package:news_app/Screens/Splash.dart';
 
 void main() async {
@@ -27,7 +28,15 @@ class MyApp extends StatelessWidget {
         '/': (context) => Splash(),
         '/tab': (context) => BottomNavigator(),
         '/home': (context) => Home(),
-        'read': (context) => ReadNews() 
+        'read': (context) => ReadNews(),
+        'newsBySource': (context) => SourceNews()
+      },
+      onGenerateRoute: (RouteSettings settings) {
+        var routes = <String, WidgetBuilder>{
+          "newsBySource": (ctx) => SourceNews(id: settings.arguments),
+        };
+        WidgetBuilder builder = routes[settings.name];
+        return MaterialPageRoute(builder: (ctx) => builder(ctx));
       },
       debugShowCheckedModeBanner: false,
     );

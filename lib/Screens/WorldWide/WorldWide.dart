@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/Models/SourceScreenArguments.dart';
+import 'package:news_app/Services/NewsApi.dart';
+import 'package:news_app/Shared/CenterLoader.dart';
+import 'package:news_app/Shared/SourceCard.dart';
 
 class WorldWide extends StatefulWidget {
   @override
@@ -6,8 +10,41 @@ class WorldWide extends StatefulWidget {
 }
 
 class _WorldWideState extends State<WorldWide> {
+  List sources;
+  bool loading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    getSources();
+  }
+
+  void getSources() async {
+    NewsApi api = NewsApi();
+    await api.getSources();
+    print(api.response);
+    if (api.response.statusCode == "ok") {
+      this.setState(() {
+        this.sources = api.response.data;
+        this.loading = false;
+      });
+    } else {
+      setState(() {
+        this.loading = false;
+      });
+      print(api.response.errors);
+    }
+  }
+
+  void onSourceTap(String id) {
+    Navigator.pushNamed(context, "newsBySource", arguments: SourceScreenArguments(id: id));
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (this.loading == true) {
+      return Loader();
+    }
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
@@ -15,18 +52,28 @@ class _WorldWideState extends State<WorldWide> {
             forceElevated: true,
             expandedHeight: 120,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text("News Sources", style: TextStyle(color: Colors.grey[50])),
+              title: Text("News Sources",
+                  style: TextStyle(color: Colors.grey[50])),
             ),
             pinned: true,
           ),
-          SliverFillRemaining(
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  
-                ],
-              ),
-            ),            
+          SliverGrid(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2
+            ),
+            delegate: SliverChildBuilderDelegate(
+              (BuildContext context, int index) {
+                final Map data = this.sources[index];
+                return SourceCard(
+                  url: data["url"], 
+                  name: data["name"],
+                  onTap: () {
+                    this.onSourceTap(data["id"]);
+                  },
+                );
+              },
+              childCount: this.sources.length,
+            ),
           )
         ],
       ),

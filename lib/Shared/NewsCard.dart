@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:news_app/Models/AppConfig.dart';
 import 'package:news_app/Shared/NewsCardImage.dart';
 
 class NewsCard extends StatelessWidget {
@@ -11,6 +12,7 @@ class NewsCard extends StatelessWidget {
   final String info;
   final String image;
   final String time;
+  final AppConfig config = AppConfig();
   NewsCard({ @required this.tapAction, @required this.title, @required this.image, @required this.info, this.source, @required this.time, @required this.author});
 
   @override
@@ -31,7 +33,7 @@ class NewsCard extends StatelessWidget {
               contentPadding:
                   EdgeInsets.symmetric(vertical: 0, horizontal: 10.0),
               leading: CircleAvatar(
-                backgroundImage: NetworkImage("https://picsum.photos/100"),
+                backgroundImage: NetworkImage("${config.iconPath}${this.source["name"]}"),
               ),
               title: Text(this.author ?? this.source["name"], style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),),
               trailing: Text(dateString ?? "", style: TextStyle(color: Colors.grey[400], fontSize: 11),),
