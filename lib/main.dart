@@ -31,13 +31,6 @@ class MyApp extends StatelessWidget {
         'read': (context) => ReadNews(),
         'newsBySource': (context) => SourceNews()
       },
-      onGenerateRoute: (RouteSettings settings) {
-        var routes = <String, WidgetBuilder>{
-          "newsBySource": (ctx) => SourceNews(id: settings.arguments),
-        };
-        WidgetBuilder builder = routes[settings.name];
-        return MaterialPageRoute(builder: (ctx) => builder(ctx));
-      },
       debugShowCheckedModeBanner: false,
     );
   }

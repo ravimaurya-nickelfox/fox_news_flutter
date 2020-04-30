@@ -27,6 +27,7 @@ class ReadNews extends StatelessWidget {
       ),
       body: WebView(
               initialUrl: data["url"],
+              javascriptMode: JavascriptMode.unrestricted,
             )
     );
   }

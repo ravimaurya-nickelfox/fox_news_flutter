@@ -18,7 +18,7 @@ class SourceCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Image.network('${config.iconPath}${this.url}', fit: BoxFit.fill),
+            Image.network('${config.iconPath}${this.url}', height: 96, width: 96,),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 10),
               child: Text(this.name, style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500), textAlign: TextAlign.center,)

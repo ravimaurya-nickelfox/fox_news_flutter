@@ -37,7 +37,7 @@ class _WorldWideState extends State<WorldWide> {
   }
 
   void onSourceTap(String id) {
-    Navigator.pushNamed(context, "newsBySource", arguments: SourceScreenArguments(id: id));
+    Navigator.pushNamed(context, "newsBySource", arguments: {'id': id});
   }
 
   @override
