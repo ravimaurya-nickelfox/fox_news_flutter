@@ -20,16 +20,33 @@ class _SettingsState extends State<Settings> {
             pinned: true,
           ),
           SliverFillRemaining(
-            child: Container(
-              child: Column(
-                children: <Widget>[
-                  SwitchListTile(
-                    title: Text("Notification"),
-                    value: true,
-                    onChanged: (bool value){},
-                    secondary: Icon(Icons.notifications),
-                  )
-                ],
+            child: Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Card(
+                      elevation: 2,
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Column(
+                            children: <Widget>[
+                              CircleAvatar(
+                                radius: 40,
+                                backgroundImage: AssetImage("Assets/images/avatar.jpg")
+                              ),
+                              SizedBox(height: 10),
+                              Text("V. Garath", style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                              SizedBox(height: 5),
+                              Text("v.garath@foxnew.com", style: TextStyle(fontSize: 13, fontWeight: FontWeight.w500)),
+                            ],
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),            
           )
